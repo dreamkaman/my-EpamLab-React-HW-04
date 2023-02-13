@@ -1,0 +1,107 @@
+.createCourseForm{
+    padding: 20px;
+    max-width: 1200px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.courseHeader{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    margin-bottom:20px;
+
+}
+
+.wrapperBtn{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 260px;
+}
+
+.descriptionBlock{
+
+    margin-bottom:20px;
+
+}
+
+.descriptionText{
+    display: block;
+    width: 100%;
+    font-size: 18px;
+    height: 90px;
+    padding: 10px;
+
+    border: 1px solid rgb(255, 221, 0);
+}
+
+.courseProperties{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    border:1px solid black;
+    padding: 40px 20px;
+}
+
+.leftSide{
+    width: 45%;
+}
+
+.addAuthorBlock{
+    margin-bottom: 100px;
+
+}
+
+.addAuthorBlock input {
+    margin-bottom: 20px;
+}
+
+.addAuthorBlock button {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.addDurationBlock input{
+    margin-bottom: 20px;
+}
+
+.durationTransformed{
+    font-size: 27px;
+}
+
+.durationTransformed span{
+    font-weight: 600;
+}
+
+.authorListItem{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 5px;
+}
+
+.rightSide{
+    width: 50%;
+}
+
+.authorListBlock{
+    margin-bottom: 30px;
+    min-width: 100%;
+
+}
+
+.authorsList{
+    overflow-y: auto;
+    height:180px;
+}
+
+.courseAuthorsBlock{
+    text-align: center;
+}

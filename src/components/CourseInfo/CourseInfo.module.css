@@ -1,0 +1,38 @@
+.courseInfoBlock {
+  padding: 20px;
+}
+
+.backToLink {
+  display: inline-block;
+  margin-bottom: 50px;
+  font-weight: 600;
+}
+
+.courseInfoBlock h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-basis: 2;
+}
+
+.description {
+  width: 60%;
+  padding: 0 20px;
+}
+
+.courseAbout {
+  width: 40%;
+  padding: 0 20px;
+}
+
+.courseAbout span {
+    display:inline-block;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-weight: 600;
+}

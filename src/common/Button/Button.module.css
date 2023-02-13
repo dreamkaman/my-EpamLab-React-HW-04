@@ -1,0 +1,22 @@
+.btn {
+    padding: 5px 20px;
+   
+    border: 1px solid var(--btn-color);
+    border-radius: 3px;
+
+    background-color: transparent;
+}
+
+.btn:hover{
+    background-color: var(--btn-color);
+    color:white;
+}
+
+.svg {
+    width: 15px;
+    height: 15px;
+}
+
+.btn:hover .svg {
+    fill: white;
+}

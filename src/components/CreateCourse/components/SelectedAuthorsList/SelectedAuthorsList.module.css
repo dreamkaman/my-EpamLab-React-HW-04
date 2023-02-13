@@ -1,0 +1,13 @@
+.authorsListItem{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 60%;
+}
+
+.authorsListItem button {
+    border:none;
+    background-color: transparent;
+    color:red;
+}

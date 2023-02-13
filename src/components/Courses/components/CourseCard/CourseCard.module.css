@@ -1,0 +1,42 @@
+.courseCard{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid var(--border-card-color)
+}
+
+.courseCard:not(:last-child){
+    margin-bottom: 20px;
+}
+
+.courseCardLeftSide{
+    width: 60%;
+}
+
+.title{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.courseCardRightSide{
+    width: calc(40% - 10px);
+}
+
+.courseCardRightSide span {
+    font-weight: 600;
+}
+
+.courseCardRightSide p {
+    margin-bottom: 10px;
+}
+
+.buttonsWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonsWrapper button:not(:last-child){
+    margin-right: 10px;
+}

@@ -1,0 +1,22 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px;
+
+  border: 1px solid rgb(205, 0, 0);
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  margin-left: 10px;
+  font-size: 25px;
+  font-weight: 600;
+  text-transform: uppercase;
+}

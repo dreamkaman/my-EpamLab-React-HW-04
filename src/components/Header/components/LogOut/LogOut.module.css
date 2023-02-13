@@ -1,0 +1,10 @@
+.wrapper{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.userName {
+    margin-right: 10px;
+}
