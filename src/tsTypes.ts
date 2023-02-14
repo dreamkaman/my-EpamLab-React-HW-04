@@ -117,3 +117,21 @@ export interface IAddNewCourseRes {
 export type AddNewCourseFn = (
 	req: IAddNewCourseReq
 ) => Promise<IAddNewCourseRes>;
+
+export interface IEditCourseReq {
+	token: string;
+	course: ICourse;
+}
+
+export interface IEditCourseRes {
+	successful: boolean;
+	result: ICourse;
+}
+
+export type EditCourseFn = (req: IEditCourseReq) => Promise<IEditCourseRes>;
+
+export interface IDeleteCourseRes {
+	successful: boolean;
+	result: string;
+}
+export type DeleteCourseFn = (token: string) => Promise<IDeleteCourseRes>;
