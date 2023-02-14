@@ -16,9 +16,9 @@ import { useAppDispatch } from 'redux/store';
 import { addNewCourseAction } from 'redux/store/courses/actionCreators';
 import { addNewAuthorAction } from 'redux/store/authors/actionCreators';
 
-import s from './CreateCourse.module.css';
+import s from './CourseForm.module.css';
 
-const CreateCourse = () => {
+const CourseForm = () => {
 	const dispatch = useAppDispatch();
 
 	const authors = useAppSelector(getAllAuthorsSelector);
@@ -233,4 +233,4 @@ const CreateCourse = () => {
 	);
 };
 
-export default CreateCourse;
+export default CourseForm;

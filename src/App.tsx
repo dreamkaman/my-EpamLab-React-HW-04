@@ -5,7 +5,7 @@ import Courses from 'components/Courses';
 import CourseInfo from 'components/CourseInfo';
 import Registration from 'components/Registration';
 import Login from 'components/Login';
-import CreateCourse from 'components/CreateCourse';
+import CourseForm from 'components/CourseForm';
 import ProtectedRoute from 'common/ProtectedRoute';
 
 import { useAppSelector } from 'redux/hooks';
@@ -41,7 +41,7 @@ const App = () => {
 					path='/courses/add'
 					element={
 						<ProtectedRoute isLoggined={isAuth}>
-							<CreateCourse />
+							<CourseForm />
 						</ProtectedRoute>
 					}
 				/>
