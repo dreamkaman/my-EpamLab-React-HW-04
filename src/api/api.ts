@@ -6,6 +6,8 @@ import {
 	LogOutUserFn,
 	LoginUserFn,
 	SignUpUserFn,
+	AddNewCourseFn,
+	IAddNewCourseRes,
 } from 'tsTypes';
 
 const instance = axios.create({
@@ -71,6 +73,22 @@ export const getAllCourses = async () => {
 export const getAllAuthors = async () => {
 	try {
 		const response = await instance.get('/authors/all');
+		return response;
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
+};
+
+export const addNewCourse: AddNewCourseFn = async ({ token, course }) => {
+	try {
+		const response: IAddNewCourseRes = await instance.post('/courses/add', {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		console.log(course);
+		console.log(response);
 		return response;
 	} catch (error) {
 		console.log(error);

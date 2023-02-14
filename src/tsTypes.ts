@@ -103,3 +103,17 @@ export interface IReqUser {
 	email: string;
 	password: string;
 }
+
+export interface IAddNewCourseReq {
+	token: string;
+	course: ICourse;
+}
+
+export interface IAddNewCourseRes {
+	successful: boolean;
+	result: ICourse;
+}
+
+export type AddNewCourseFn = (
+	req: IAddNewCourseReq
+) => Promise<IAddNewCourseRes>;
