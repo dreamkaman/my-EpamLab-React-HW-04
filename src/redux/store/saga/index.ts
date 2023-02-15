@@ -1,9 +1,15 @@
 import { takeEvery, call, put, all, fork } from 'redux-saga/effects';
-import { getAllAuthors, getAllCourses, loginUser, logOutUser } from 'api/api';
+import {
+	addNewCourse,
+	getAllAuthors,
+	getAllCourses,
+	loginUser,
+	logOutUser,
+} from 'api/api';
 import { USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
 import { clearUserDataAction, setUserDataAction } from '../user/actionCreators';
-import { GET_COURSES } from '../courses/actionTypes';
+import { ADD_COURSE, GET_COURSES } from '../courses/actionTypes';
 import {
 	clearAllCoursesAction,
 	setAllCoursesAction,
@@ -13,6 +19,7 @@ import {
 	clearAllAuthorsAction,
 	setAllAuthorsAction,
 } from '../authors/actionCreators';
+import { IAddNewCourseReq } from 'tsTypes';
 
 function* userLoginWorkerSaga(action: {
 	type: string;
@@ -92,11 +99,28 @@ function* getAuthorsWatcherSaga() {
 	yield takeEvery(GET_AUTHORS, authorsWorkerSaga);
 }
 
+function* addCourseWorkerSaga(action: {
+	type: string;
+	payload: IAddNewCourseReq;
+}) {
+	try {
+		const res = yield call(addNewCourse, action.payload);
+		console.log(res);
+	} catch (error) {
+		alert(error.message);
+	}
+}
+
+function* addNewCourseWatcherSaga() {
+	yield takeEvery(ADD_COURSE, addCourseWorkerSaga);
+}
+
 export default function* rootSaga() {
 	yield all([
 		call(userLoginWatcherSaga),
 		call(userLogoutWatcherSaga),
 		fork(getCoursesWatcherSaga),
 		fork(getAuthorsWatcherSaga),
+		fork(addNewCourseWatcherSaga),
 	]);
 }

@@ -12,6 +12,10 @@ import {
 	IEditCourseRes,
 	DeleteCourseFn,
 	IDeleteCourseRes,
+	IAddNewAuthorRes,
+	AddNewAuthorFn,
+	GetUserFn,
+	IGetUserRes,
 } from 'tsTypes';
 
 const instance = axios.create({
@@ -86,12 +90,15 @@ export const getAllAuthors = async () => {
 
 export const addNewCourse: AddNewCourseFn = async ({ token, course }) => {
 	try {
-		const response: IAddNewCourseRes = await instance.post('/courses/add', {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-			body: course,
-		});
+		const response: IAddNewCourseRes = await instance.post(
+			'/courses/add',
+			{ ...course },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
 		console.log(course);
 		console.log(response);
 		return response;
@@ -107,7 +114,7 @@ export const editCourse: EditCourseFn = async ({ token, course }) => {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
-			body: course,
+			data: course,
 		});
 		console.log(course);
 		console.log(response);
@@ -133,13 +140,13 @@ export const deleteCourse: DeleteCourseFn = async (token) => {
 	}
 };
 
-export const addNewAuthor = (token, name) => {
+export const addNewAuthor: AddNewAuthorFn = async (token, name) => {
 	try {
-		const response = instance.post('/authors/add', {
+		const response: IAddNewAuthorRes = await instance.post('/authors/add', {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
-			body: name,
+			data: { name },
 		});
 		return response;
 	} catch (error) {
@@ -148,9 +155,9 @@ export const addNewAuthor = (token, name) => {
 	}
 };
 
-export const getUser = (token) => {
+export const getUser: GetUserFn = async (token) => {
 	try {
-		const response = instance.get('/users/me', {
+		const response: IGetUserRes = await instance.get('/users/me', {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
