@@ -1,10 +1,11 @@
 type DateTransformFn = (date: string) => string;
 
 export const dateTransform: DateTransformFn = (dateString) => {
-	const dateObject = new Date(dateString);
-	let day = dateObject.getDate().toString();
-	let month = dateObject.getMonth().toString();
-	const year = dateObject.getFullYear().toString();
+	const dateSplitted = dateString.split('/');
+
+	let day = dateSplitted[0];
+	let month = dateSplitted[1];
+	const year = dateSplitted[2];
 
 	day = Number(day) > 9 ? day : `0${day}`;
 	month =

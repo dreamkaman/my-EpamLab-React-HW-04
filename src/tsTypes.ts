@@ -106,7 +106,12 @@ export interface IReqUser {
 
 export interface IAddNewCourseReq {
 	token: string;
-	course: ICourse;
+	course: {
+		title: string;
+		duration: number;
+		description: string;
+		authors: string[];
+	};
 }
 
 export interface IAddNewCourseRes {
@@ -120,7 +125,12 @@ export type AddNewCourseFn = (
 
 export interface IEditCourseReq {
 	token: string;
-	course: ICourse;
+	course: {
+		authors: string[];
+		description: string;
+		duration: number;
+		title: string;
+	};
 }
 
 export interface IEditCourseRes {
@@ -135,3 +145,24 @@ export interface IDeleteCourseRes {
 	result: string;
 }
 export type DeleteCourseFn = (token: string) => Promise<IDeleteCourseRes>;
+
+export interface IAddNewAuthorRes {
+	successful: boolean;
+	result: IAuthor;
+}
+export type AddNewAuthorFn = (
+	token: string,
+	name: string
+) => Promise<IAddNewAuthorRes>;
+
+export interface IGetUserRes {
+	successful: boolean;
+	result: {
+		name: string;
+		email: string;
+		password: string;
+		role: 'admin' | 'user';
+		id: string;
+	};
+}
+export type GetUserFn = (token: string) => Promise<IGetUserRes>;
