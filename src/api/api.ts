@@ -99,9 +99,8 @@ export const addNewCourse: AddNewCourseFn = async ({ token, course }) => {
 				},
 			}
 		);
-		console.log(course);
-		console.log(response);
-		return response;
+		const { result } = response;
+		return result;
 	} catch (error) {
 		console.log(error);
 		throw error;

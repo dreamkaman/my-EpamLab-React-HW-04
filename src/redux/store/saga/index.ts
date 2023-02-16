@@ -11,6 +11,7 @@ import { USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 import { clearUserDataAction, setUserDataAction } from '../user/actionCreators';
 import { ADD_COURSE, GET_COURSES } from '../courses/actionTypes';
 import {
+	addNewCourseAction,
 	clearAllCoursesAction,
 	setAllCoursesAction,
 } from '../courses/actionCreators';
@@ -105,7 +106,8 @@ function* addCourseWorkerSaga(action: {
 }) {
 	try {
 		const res = yield call(addNewCourse, action.payload);
-		console.log(res);
+		console.log('res', res);
+		yield put(addNewCourseSuccessAction(res));
 	} catch (error) {
 		alert(error.message);
 	}
