@@ -92,14 +92,18 @@ export const addNewCourse: AddNewCourseFn = async ({ token, course }) => {
 	try {
 		const response: IAddNewCourseRes = await instance.post(
 			'/courses/add',
-			{ ...course },
+			course,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			}
 		);
-		const { result } = response;
+		console.log(response);
+		const {
+			data: { result },
+		} = response;
+		console.log('result', result);
 		return result;
 	} catch (error) {
 		console.log(error);

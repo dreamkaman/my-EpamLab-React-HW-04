@@ -2,9 +2,9 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
 	setAllCoursesAction,
 	clearAllCoursesAction,
-	addNewCourseAction,
 	deleteCourseAction,
 	updateCourseAction,
+	setNewCourseAction,
 } from './actionCreators';
 
 import { ICourse } from 'tsTypes';
@@ -18,7 +18,7 @@ export const coursesReducer = createReducer(initialReducer, {
 	[clearAllCoursesAction.type]: () => {
 		return initialReducer;
 	},
-	[addNewCourseAction.type]: (state, action) => {
+	[setNewCourseAction.type]: (state, action) => {
 		return [...state, action.payload];
 	},
 	[deleteCourseAction.type]: (state, action) => {

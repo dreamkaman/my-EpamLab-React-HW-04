@@ -13,15 +13,19 @@ import { IAuthor, getAuthorsIdArray } from 'helpers/authorsString';
 import { useAppSelector } from 'redux/hooks';
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 import { useAppDispatch } from 'redux/store';
-import { addNewCourseAction } from 'redux/store/courses/actionCreators';
+
 import { addNewAuthorAction } from 'redux/store/authors/actionCreators';
 
 import s from './CourseForm.module.css';
+import { addNewCourseAction } from 'redux/store/courses/actionCreators';
+import { getTokenSelector } from 'redux/store/user/selectors';
 
 const CourseForm = () => {
 	const dispatch = useAppDispatch();
 
 	const authors = useAppSelector(getAllAuthorsSelector);
+
+	const token = useAppSelector(getTokenSelector);
 
 	const navigate = useNavigate();
 
@@ -71,19 +75,12 @@ const CourseForm = () => {
 			return;
 		}
 
-		const id: string = uuidV4();
-		const creationDate = new Date().toISOString();
-
 		const authorsId = getAuthorsIdArray(selectedAuthors);
 
 		dispatch(
 			addNewCourseAction({
-				id,
-				title,
-				description,
-				creationDate,
-				duration,
-				authorsId,
+				token,
+				course: { title, description, duration, authors: authorsId },
 			})
 		);
 

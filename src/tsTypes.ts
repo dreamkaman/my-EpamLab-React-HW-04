@@ -116,12 +116,12 @@ export interface IAddNewCourseReq {
 
 export interface IAddNewCourseRes {
 	successful: boolean;
-	result: ICourse;
+	data: {
+		result: ICourse;
+	};
 }
 
-export type AddNewCourseFn = (
-	req: IAddNewCourseReq
-) => Promise<IAddNewCourseRes>;
+export type AddNewCourseFn = (req: IAddNewCourseReq) => Promise<ICourse>;
 
 export interface IEditCourseReq {
 	token: string;
