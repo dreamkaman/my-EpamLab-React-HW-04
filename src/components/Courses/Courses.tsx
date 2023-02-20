@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,33 +14,17 @@ import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 import { ICourse } from 'tsTypes';
 
 import s from './Courses.module.css';
-import { getTokenSelector } from 'redux/store/user/selectors';
-import { addNewCourse } from 'api/api';
 
 const Courses = () => {
 	const navigate = useNavigate();
 
 	const authors = useAppSelector(getAllAuthorsSelector);
 
-	const token = useAppSelector(getTokenSelector);
-
 	const [filteredCourses, setFilteredCourses] = useState<ICourse[]>([]);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');
 	};
-
-	useEffect(() => {
-		addNewCourse({
-			token,
-			course: {
-				title: 'Java-1',
-				duration: 120,
-				description: 'Lorem ipsum dolor',
-				authors: ['27cc3006-e93a-4748-8ca8-73d06aa93b6d'],
-			},
-		});
-	}, []);
 
 	return (
 		<section className={s.coursesSection}>
