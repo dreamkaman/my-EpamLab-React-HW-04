@@ -124,6 +124,7 @@ export interface IAddNewCourseRes {
 export type AddNewCourseFn = (req: IAddNewCourseReq) => Promise<ICourse>;
 
 export interface IEditCourseReq {
+	id: string;
 	token: string;
 	course: {
 		authors: string[];
@@ -144,7 +145,10 @@ export interface IDeleteCourseRes {
 	successful: boolean;
 	result: string;
 }
-export type DeleteCourseFn = (token: string) => Promise<IDeleteCourseRes>;
+export type DeleteCourseFn = (req: {
+	id: string;
+	token: string;
+}) => Promise<IDeleteCourseRes>;
 
 export interface IAddNewAuthorRes {
 	successful: boolean;

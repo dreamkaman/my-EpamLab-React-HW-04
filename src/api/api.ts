@@ -99,11 +99,9 @@ export const addNewCourse: AddNewCourseFn = async ({ token, course }) => {
 				},
 			}
 		);
-		console.log(response);
 		const {
 			data: { result },
 		} = response;
-		console.log('result', result);
 		return result;
 	} catch (error) {
 		console.log(error);
@@ -111,15 +109,17 @@ export const addNewCourse: AddNewCourseFn = async ({ token, course }) => {
 	}
 };
 
-export const editCourse: EditCourseFn = async ({ token, course }) => {
+export const editCourse: EditCourseFn = async ({ id, token, course }) => {
 	try {
-		const response: IEditCourseRes = await instance.put('/courses/:id', {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-			data: course,
-		});
-		console.log(course);
+		const response: IEditCourseRes = await instance.put(
+			`/courses/${id}`,
+			course,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
 		console.log(response);
 		return response;
 	} catch (error) {
@@ -128,9 +128,9 @@ export const editCourse: EditCourseFn = async ({ token, course }) => {
 	}
 };
 
-export const deleteCourse: DeleteCourseFn = async (token) => {
+export const deleteCourse: DeleteCourseFn = async ({ id, token }) => {
 	try {
-		const response: IDeleteCourseRes = await instance.delete('/courses/:id', {
+		const response: IDeleteCourseRes = await instance.delete(`/courses/${id}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},

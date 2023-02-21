@@ -9,6 +9,8 @@ import { useAppDispatch } from 'redux/store';
 import { deleteCourseAction } from 'redux/store/courses/actionCreators';
 
 import s from './CourseCard.module.css';
+import { useAppSelector } from 'redux/hooks';
+import { getTokenSelector } from 'redux/store/user/selectors';
 
 const CourseCard: FC<ICourseCardProps> = ({
 	id,
@@ -20,6 +22,7 @@ const CourseCard: FC<ICourseCardProps> = ({
 }) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
+	const token = useAppSelector(getTokenSelector);
 
 	const onShowCourseClickHandle = () => {
 		navigate(`/courses/${id}`);
@@ -27,7 +30,7 @@ const CourseCard: FC<ICourseCardProps> = ({
 
 	const onDeleteCourse: MouseEventHandler<HTMLButtonElement> = (e) => {
 		const id = e.currentTarget.id;
-		dispatch(deleteCourseAction(id));
+		dispatch(deleteCourseAction({ id, token }));
 	};
 
 	return (

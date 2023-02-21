@@ -1,6 +1,7 @@
 import { takeEvery, call, put, all, fork } from 'redux-saga/effects';
 import {
 	addNewCourse,
+	deleteCourse,
 	getAllAuthors,
 	getAllCourses,
 	loginUser,
@@ -9,7 +10,7 @@ import {
 import { USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
 import { clearUserDataAction, setUserDataAction } from '../user/actionCreators';
-import { ADD_COURSE, GET_COURSES } from '../courses/actionTypes';
+import { ADD_COURSE, DELETE_COURSE, GET_COURSES } from '../courses/actionTypes';
 import {
 	clearAllCoursesAction,
 	setAllCoursesAction,
@@ -117,6 +118,17 @@ function* addNewCourseWatcherSaga() {
 	yield takeEvery(ADD_COURSE, addCourseWorkerSaga);
 }
 
+function* deleteCourseWorker(action: {
+	type: string;
+	payload: { id: string; token: string };
+}) {
+	const result = yield deleteCourse(action.payload);
+	console.log(result);
+}
+function* clearDeletedCourseWatcher() {
+	yield takeEvery(DELETE_COURSE, deleteCourseWorker);
+}
+
 export default function* rootSaga() {
 	yield all([
 		call(userLoginWatcherSaga),
@@ -124,5 +136,6 @@ export default function* rootSaga() {
 		fork(getCoursesWatcherSaga),
 		fork(getAuthorsWatcherSaga),
 		fork(addNewCourseWatcherSaga),
+		fork(clearDeletedCourseWatcher),
 	]);
 }
