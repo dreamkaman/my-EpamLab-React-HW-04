@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
 	setAllCoursesAction,
 	clearAllCoursesAction,
-	deleteCourseAction,
+	clearDeletedCourseAction,
 	updateCourseAction,
 	setNewCourseAction,
 } from './actionCreators';
@@ -21,7 +21,7 @@ export const coursesReducer = createReducer(initialReducer, {
 	[setNewCourseAction.type]: (state, action) => {
 		return [...state, action.payload];
 	},
-	[deleteCourseAction.type]: (state, action) => {
+	[clearDeletedCourseAction.type]: (state, action) => {
 		const filteredCourses = state.filter(
 			(course) => course.id !== action.payload //in this case we pass only id as payload
 		);

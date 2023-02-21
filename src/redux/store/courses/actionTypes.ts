@@ -5,3 +5,4 @@ export const ADD_COURSE = 'ADD_COURSE';
 export const SET_NEW_COURSE = 'SET_NEW_COURSE';
 export const DELETE_COURSE = 'DELETE_COURSE';
 export const UPDATE_COURSE = 'UPDATE_COURSE';
+export const CLEAR_DELETED_COURSE = 'CLEAR_DELETED_COURSE';
