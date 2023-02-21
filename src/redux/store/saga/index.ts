@@ -13,6 +13,7 @@ import { clearUserDataAction, setUserDataAction } from '../user/actionCreators';
 import { ADD_COURSE, DELETE_COURSE, GET_COURSES } from '../courses/actionTypes';
 import {
 	clearAllCoursesAction,
+	clearDeletedCourseAction,
 	setAllCoursesAction,
 	setNewCourseAction,
 } from '../courses/actionCreators';
@@ -122,8 +123,14 @@ function* deleteCourseWorker(action: {
 	type: string;
 	payload: { id: string; token: string };
 }) {
-	const result = yield deleteCourse(action.payload);
-	console.log(result);
+	try {
+		const result = yield deleteCourse(action.payload);
+		if (result.data.successful) {
+			yield put(clearDeletedCourseAction(action.payload.id));
+		}
+	} catch (error) {
+		alert(error.message);
+	}
 }
 function* clearDeletedCourseWatcher() {
 	yield takeEvery(DELETE_COURSE, deleteCourseWorker);
