@@ -6,6 +6,7 @@ import {
 	USER_LOGOUT,
 	CLEAR_USER_DATA,
 	GET_USER_DATA,
+	SET_USER_ROLE,
 } from './actionTypes';
 
 import { IReqUser } from 'tsTypes';
@@ -28,3 +29,8 @@ export const clearUserDataAction =
 export const getUserDataAction = createAction<string, 'GET_USER_DATA'>(
 	GET_USER_DATA
 );
+
+export const setUserRoleAction = createAction<
+	{ id: string; role: string },
+	'SET_USER_ROLE'
+>(SET_USER_ROLE);

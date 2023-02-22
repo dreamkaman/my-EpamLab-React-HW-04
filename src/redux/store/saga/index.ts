@@ -4,10 +4,11 @@ import {
 	deleteCourse,
 	getAllAuthors,
 	getAllCourses,
+	getUser,
 	loginUser,
 	logOutUser,
 } from 'api/api';
-import { USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
+import { GET_USER_DATA, USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
 import { clearUserDataAction, setUserDataAction } from '../user/actionCreators';
 import { ADD_COURSE, DELETE_COURSE, GET_COURSES } from '../courses/actionTypes';
@@ -136,6 +137,23 @@ function* clearDeletedCourseWatcher() {
 	yield takeEvery(DELETE_COURSE, deleteCourseWorker);
 }
 
+function* getUserDataWorker(action: {
+	type: 'GET_USER_DATA';
+	payload: string;
+}) {
+	try {
+		console.log('action.payload', action.payload);
+		const res = yield call(getUser, action.payload);
+		console.log(res);
+	} catch (error) {
+		alert(error.message);
+	}
+}
+
+function* getUserDataWatcher() {
+	yield takeEvery(GET_USER_DATA, getUserDataWorker);
+}
+
 export default function* rootSaga() {
 	yield all([
 		call(userLoginWatcherSaga),
@@ -144,5 +162,6 @@ export default function* rootSaga() {
 		fork(getAuthorsWatcherSaga),
 		fork(addNewCourseWatcherSaga),
 		fork(clearDeletedCourseWatcher),
+		fork(getUserDataWatcher),
 	]);
 }
