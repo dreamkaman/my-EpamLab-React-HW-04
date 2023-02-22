@@ -38,8 +38,6 @@ const Courses = () => {
 
 			<ul>
 				{filteredCourses?.map((course) => {
-					console.log(course.authors);
-					console.log(authors);
 					return (
 						<CourseCard
 							id={course.id}

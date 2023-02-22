@@ -24,8 +24,6 @@ const CourseCard: FC<ICourseCardProps> = ({
 	const dispatch = useAppDispatch();
 	const token = useAppSelector(getTokenSelector);
 
-	console.log(authors);
-
 	const onShowCourseClickHandle = () => {
 		navigate(`/courses/${id}`);
 	};
