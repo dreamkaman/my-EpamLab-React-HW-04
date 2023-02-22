@@ -162,7 +162,12 @@ export const getUser: GetUserFn = async (token) => {
 				Authorization: `Bearer ${token}`,
 			},
 		});
-		return response;
+
+		const { result } = response.data;
+
+		// console.log('response', response);
+
+		return result;
 	} catch (error) {
 		console.log(error);
 		throw error;
