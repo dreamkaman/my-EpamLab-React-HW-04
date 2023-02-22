@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useAppSelector } from 'redux/hooks';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useNavigate } from 'react-router-dom';
 
 import CourseCard from './components/CourseCard/CourseCard';
@@ -10,6 +10,8 @@ import { convertAuthorsIdToNames } from 'helpers/authorsString';
 import { dateTransform } from 'helpers/dateGenerator';
 
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
+import { getTokenSelector } from 'redux/store/user/selectors';
+import { getUserDataAction } from 'redux/store/user/actionCreators';
 
 import { ICourse } from 'tsTypes';
 
@@ -21,6 +23,14 @@ const Courses = () => {
 	const authors = useAppSelector(getAllAuthorsSelector);
 
 	const [filteredCourses, setFilteredCourses] = useState<ICourse[]>([]);
+
+	const token = useAppSelector(getTokenSelector);
+
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(getUserDataAction(token));
+	}, []);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');
