@@ -38,13 +38,15 @@ const Courses = () => {
 
 			<ul>
 				{filteredCourses?.map((course) => {
+					console.log(course.authors);
+					console.log(authors);
 					return (
 						<CourseCard
 							id={course.id}
 							key={course.id}
 							title={course.title}
 							description={course.description}
-							authors={convertAuthorsIdToNames(course.authorsId, authors)}
+							authors={convertAuthorsIdToNames(course.authors, authors)}
 							duration={course.duration}
 							creationDate={dateTransform(course.creationDate)}
 						/>

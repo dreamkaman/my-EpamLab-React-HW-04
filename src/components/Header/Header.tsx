@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import Logo from './components/Logo/Logo';
 import LogOut from './components/LogOut/LogOut';
 
-import s from './Header.module.css';
-
 import { useAppSelector } from 'redux/hooks';
 import {
 	getIsAuthSelector,
 	getUserNameSelector,
 } from 'redux/store/user/selectors';
+
+import s from './Header.module.css';
 
 const Header = () => {
 	const userName = useAppSelector(getUserNameSelector);

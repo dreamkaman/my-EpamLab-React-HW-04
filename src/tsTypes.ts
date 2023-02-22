@@ -11,7 +11,7 @@ export interface ICourseBase {
 }
 
 export interface ICourse extends ICourseBase {
-	authorsId: string[];
+	authors: string[];
 }
 
 export type TonClickHandle = (value: boolean) => void;
@@ -74,6 +74,11 @@ export interface IInputProps {
 
 export interface IProtectedRouteProps {
 	isLoggined: boolean;
+	children: ReactElement;
+}
+
+export interface IPrivateRouteProps {
+	role: 'admin' | 'user';
 	children: ReactElement;
 }
 

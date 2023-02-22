@@ -45,7 +45,7 @@ export const loginUser: LoginUserFn = async ({ email, password }) => {
 			email,
 			password,
 		});
-
+		console.log(response);
 		return response;
 	} catch (error) {
 		console.log(error);
