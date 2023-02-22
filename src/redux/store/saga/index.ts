@@ -109,7 +109,6 @@ function* addCourseWorkerSaga(action: {
 }) {
 	try {
 		const result = yield call(addNewCourse, action.payload);
-		console.log('res', result);
 		yield put(setNewCourseAction(result));
 	} catch (error) {
 		alert(error.message);
@@ -142,9 +141,14 @@ function* getUserDataWorker(action: {
 	payload: string;
 }) {
 	try {
-		console.log('action.payload', action.payload);
 		const res = yield call(getUser, action.payload);
-		console.log(res);
+		const {
+			data: {
+				result: { role },
+			},
+		} = res;
+
+		return role;
 	} catch (error) {
 		alert(error.message);
 	}
