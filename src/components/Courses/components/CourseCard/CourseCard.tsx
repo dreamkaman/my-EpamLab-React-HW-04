@@ -28,11 +28,15 @@ const CourseCard: FC<ICourseCardProps> = ({
 		navigate(`/courses/${id}`);
 	};
 
-	const onDeleteCourse: MouseEventHandler<HTMLButtonElement> = (e) => {
+	const onDeleteCourseHandle: MouseEventHandler<HTMLButtonElement> = (e) => {
 		const id = e.currentTarget.id;
 		dispatch(deleteCourseAction({ id, token }));
 	};
 
+	const onEditCourseHandle: MouseEventHandler<HTMLButtonElement> = (e) => {
+		const id = e.currentTarget.id;
+		console.log(id);
+	};
 	return (
 		<li className={s.courseCard}>
 			<div className={s.courseCardLeftSide}>
@@ -58,8 +62,13 @@ const CourseCard: FC<ICourseCardProps> = ({
 						btnText='Show course'
 						onClick={onShowCourseClickHandle}
 					/>
-					<Button id={id} image='pen' btnText='' />
-					<Button id={id} image='trash' btnText='' onClick={onDeleteCourse} />
+					<Button id={id} image='pen' btnText='' onClick={onEditCourseHandle} />
+					<Button
+						id={id}
+						image='trash'
+						btnText=''
+						onClick={onDeleteCourseHandle}
+					/>
 				</div>
 			</div>
 		</li>

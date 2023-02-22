@@ -44,7 +44,7 @@ const Courses = () => {
 							key={course.id}
 							title={course.title}
 							description={course.description}
-							authors={convertAuthorsIdToNames(course.authorsId, authors)}
+							authors={convertAuthorsIdToNames(course.authors, authors)}
 							duration={course.duration}
 							creationDate={dateTransform(course.creationDate)}
 						/>

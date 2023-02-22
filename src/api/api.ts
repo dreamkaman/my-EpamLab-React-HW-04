@@ -45,7 +45,6 @@ export const loginUser: LoginUserFn = async ({ email, password }) => {
 			email,
 			password,
 		});
-
 		return response;
 	} catch (error) {
 		console.log(error);
@@ -120,7 +119,6 @@ export const editCourse: EditCourseFn = async ({ id, token, course }) => {
 				},
 			}
 		);
-		console.log(response);
 		return response;
 	} catch (error) {
 		console.log(error);
@@ -135,7 +133,6 @@ export const deleteCourse: DeleteCourseFn = async ({ id, token }) => {
 				Authorization: `Bearer ${token}`,
 			},
 		});
-		console.log(response);
 		return response;
 	} catch (error) {
 		console.log(error);
