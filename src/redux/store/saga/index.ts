@@ -10,7 +10,11 @@ import {
 } from 'api/api';
 import { GET_USER_DATA, USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
-import { clearUserDataAction, setUserDataAction } from '../user/actionCreators';
+import {
+	clearUserDataAction,
+	setUserDataAction,
+	setUserRoleAction,
+} from '../user/actionCreators';
 import { ADD_COURSE, DELETE_COURSE, GET_COURSES } from '../courses/actionTypes';
 import {
 	clearAllCoursesAction,
@@ -142,13 +146,9 @@ function* getUserDataWorker(action: {
 }) {
 	try {
 		const res = yield call(getUser, action.payload);
-		const {
-			data: {
-				result: { role },
-			},
-		} = res;
+		const { role } = res;
 
-		return role;
+		yield put(setUserRoleAction(role));
 	} catch (error) {
 		alert(error.message);
 	}

@@ -163,6 +163,8 @@ export const getUser: GetUserFn = async (token) => {
 			},
 		});
 
+		console.log('response', response);
+
 		const { result } = response.data;
 
 		return result;
