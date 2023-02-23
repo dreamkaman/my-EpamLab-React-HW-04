@@ -165,8 +165,6 @@ export const getUser: GetUserFn = async (token) => {
 
 		const { result } = response.data;
 
-		// console.log('response', response);
-
 		return result;
 	} catch (error) {
 		console.log(error);

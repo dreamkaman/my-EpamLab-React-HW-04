@@ -164,22 +164,18 @@ export type AddNewAuthorFn = (
 	name: string
 ) => Promise<IAddNewAuthorRes>;
 
-export interface IGetUserRes {
-	data: {
-		successful: boolean;
-		result: {
-			name: string;
-			email: string;
-			password: string;
-			role: 'admin' | 'user';
-			id: string;
-		};
-	};
-}
-export type GetUserFn = (token: string) => Promise<{
+export interface IFullUserData {
 	name: string;
 	email: string;
 	password: string;
 	role: 'admin' | 'user';
 	id: string;
-}>;
+}
+
+export interface IGetUserRes {
+	data: {
+		successful: boolean;
+		result: IFullUserData;
+	};
+}
+export type GetUserFn = (token: string) => Promise<IFullUserData>;
