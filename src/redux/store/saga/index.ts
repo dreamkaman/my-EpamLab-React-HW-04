@@ -7,6 +7,7 @@ import {
 	getUser,
 	loginUser,
 	logOutUser,
+	editCourse,
 } from 'api/api';
 import { GET_USER_DATA, USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
@@ -15,7 +16,12 @@ import {
 	setUserDataAction,
 	setUserRoleAction,
 } from '../user/actionCreators';
-import { ADD_COURSE, DELETE_COURSE, GET_COURSES } from '../courses/actionTypes';
+import {
+	ADD_COURSE,
+	DELETE_COURSE,
+	GET_COURSES,
+	UPDATE_COURSE,
+} from '../courses/actionTypes';
 import {
 	clearAllCoursesAction,
 	clearDeletedCourseAction,
@@ -27,7 +33,7 @@ import {
 	clearAllAuthorsAction,
 	setAllAuthorsAction,
 } from '../authors/actionCreators';
-import { IAddNewCourseReq } from 'tsTypes';
+import { IAddNewCourseReq, IEditCourseReq } from 'tsTypes';
 
 function* userLoginWorkerSaga(action: {
 	type: string;
@@ -159,6 +165,21 @@ function* getUserDataWatcher() {
 	yield takeEvery(GET_USER_DATA, getUserDataWorker);
 }
 
+function* editCourseWorker(action: {
+	type: 'UPDATE_COURSE';
+	payload: IEditCourseReq;
+}) {
+	console.log('action.payload', action.payload);
+
+	const res = yield call(editCourse, action.payload);
+
+	console.log(res);
+}
+
+function* editCourseWatcher() {
+	yield takeEvery(UPDATE_COURSE, editCourseWorker);
+}
+
 export default function* rootSaga() {
 	yield all([
 		fork(userLoginWatcherSaga),
@@ -168,5 +189,6 @@ export default function* rootSaga() {
 		fork(addNewCourseWatcherSaga),
 		fork(clearDeletedCourseWatcher),
 		fork(getUserDataWatcher),
+		fork(editCourseWatcher),
 	]);
 }

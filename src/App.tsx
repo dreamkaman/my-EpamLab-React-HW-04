@@ -46,7 +46,7 @@ const App = () => {
 					path='/courses/add'
 					element={
 						<PrivateRoute userRole={role}>
-							<CourseForm />
+							<CourseForm mode='create' />
 						</PrivateRoute>
 					}
 				/>
@@ -63,7 +63,7 @@ const App = () => {
 					path='/courses/update/:courseId'
 					element={
 						<PrivateRoute userRole={role}>
-							<CourseForm />
+							<CourseForm mode='update' />
 						</PrivateRoute>
 					}
 				/>

@@ -2,6 +2,10 @@ import { ChangeEvent, ReactElement } from 'react';
 
 import { IAuthor } from 'helpers/authorsString';
 
+export interface ICourseFormProps {
+	mode: 'create' | 'update';
+}
+
 export interface ICourseBase {
 	id: string;
 	title: string;

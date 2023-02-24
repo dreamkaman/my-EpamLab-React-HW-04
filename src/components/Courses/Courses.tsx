@@ -10,7 +10,10 @@ import { convertAuthorsIdToNames } from 'helpers/authorsString';
 import { dateTransform } from 'helpers/dateGenerator';
 
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
-import { getTokenSelector } from 'redux/store/user/selectors';
+import {
+	getTokenSelector,
+	getUserRoleSelector,
+} from 'redux/store/user/selectors';
 import { getUserDataAction } from 'redux/store/user/actionCreators';
 
 import { ICourse } from 'tsTypes';
@@ -26,11 +29,13 @@ const Courses = () => {
 
 	const token = useAppSelector(getTokenSelector);
 
+	const role = useAppSelector(getUserRoleSelector);
+
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(getUserDataAction(token));
-	}, []);
+	}, [token]);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');
@@ -43,7 +48,9 @@ const Courses = () => {
 					filteredCourses={filteredCourses}
 					setFilteredCourses={setFilteredCourses}
 				/>
-				<Button btnText='Add new course' onClick={onAddNewCourseClick} />
+				{role === 'admin' && (
+					<Button btnText='Add new course' onClick={onAddNewCourseClick} />
+				)}
 			</div>
 
 			<ul>

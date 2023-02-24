@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidV4 } from 'uuid';
 
 import Button from 'common/Button';
@@ -16,11 +16,18 @@ import { useAppDispatch } from 'redux/store';
 
 import { addNewAuthorAction } from 'redux/store/authors/actionCreators';
 
-import s from './CourseForm.module.css';
-import { addNewCourseAction } from 'redux/store/courses/actionCreators';
+import {
+	addNewCourseAction,
+	updateCourseAction,
+} from 'redux/store/courses/actionCreators';
 import { getTokenSelector } from 'redux/store/user/selectors';
+import { ICourseFormProps } from 'tsTypes';
 
-const CourseForm = () => {
+import s from './CourseForm.module.css';
+
+const CourseForm: FC<ICourseFormProps> = ({ mode }) => {
+	console.log(mode);
+
 	const dispatch = useAppDispatch();
 
 	const authors = useAppSelector(getAllAuthorsSelector);
@@ -28,6 +35,8 @@ const CourseForm = () => {
 	const token = useAppSelector(getTokenSelector);
 
 	const navigate = useNavigate();
+
+	const params = useParams();
 
 	const [title, setTitle] = useState<string>('');
 	const [authorName, setAuthorName] = useState<string>(''); //state for the new author name input
@@ -77,18 +86,30 @@ const CourseForm = () => {
 
 		const authorsId = getAuthorsIdArray(selectedAuthors);
 
-		dispatch(
-			addNewCourseAction({
-				token,
-				course: { title, description, duration, authors: authorsId },
-			})
-		);
+		if (mode === 'create') {
+			dispatch(
+				addNewCourseAction({
+					token,
+					course: { title, description, duration, authors: authorsId },
+				})
+			);
 
-		setSelectedAuthors([]);
-		setRestAuthors(authors);
-		setTitle('');
-		setDescription('');
-		setDuration(0);
+			setSelectedAuthors([]);
+			setRestAuthors(authors);
+			setTitle('');
+			setDescription('');
+			setDuration(0);
+		} else {
+			const { courseId } = params;
+
+			dispatch(
+				updateCourseAction({
+					id: courseId,
+					token,
+					course: { title, description, duration, authors: authorsId },
+				})
+			);
+		}
 	};
 
 	const onCreateAuthorClickHandle = () => {
@@ -149,7 +170,10 @@ const CourseForm = () => {
 					placeholder='Enter title'
 				/>
 				<div className={s.wrapperBtn}>
-					<Button btnText='Create course' type='submit' />
+					<Button
+						btnText={mode === 'create' ? 'Create course' : 'Update course'}
+						type='submit'
+					/>
 					<Button btnText='Cancel' onClick={onCancelClick} />
 				</div>
 			</div>
