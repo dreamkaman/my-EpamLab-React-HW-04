@@ -39,7 +39,7 @@ const CourseCard: FC<ICourseCardProps> = ({
 
 	const onEditCourseHandle: MouseEventHandler<HTMLButtonElement> = (e) => {
 		const id = e.currentTarget.id;
-		console.log(id);
+		navigate(`/courses/update/${id}`);
 	};
 	return (
 		<li className={s.courseCard}>

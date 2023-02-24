@@ -110,6 +110,7 @@ export const addNewCourse: AddNewCourseFn = async ({ token, course }) => {
 
 export const editCourse: EditCourseFn = async ({ id, token, course }) => {
 	try {
+		console.log('API ready');
 		const response: IEditCourseRes = await instance.put(
 			`/courses/${id}`,
 			course,

@@ -5,20 +5,21 @@ import {
 	setUserRoleAction,
 } from './actionCreators';
 
-const initialState = {
+export interface IUserLoginPayload {
+	isAuth: boolean;
+	name: string;
+	email: string;
+	token: string;
+	role: 'admin' | 'user' | null;
+}
+
+const initialState: IUserLoginPayload = {
 	isAuth: false,
 	name: '',
 	email: '',
 	token: '',
 	role: null,
 };
-
-export interface IUserLoginPayload {
-	name: string;
-	email: string;
-	token: string;
-	role: 'admin' | 'user';
-}
 
 export const userReducer = createReducer(initialState, {
 	[clearUserDataAction.type]: () => {
@@ -28,7 +29,7 @@ export const userReducer = createReducer(initialState, {
 		_state,
 		action: PayloadAction<IUserLoginPayload>
 	) => {
-		return { isAuth: true, ...action.payload };
+		return { ...action.payload, isAuth: true };
 	},
 	[setUserRoleAction.type]: (
 		state,
