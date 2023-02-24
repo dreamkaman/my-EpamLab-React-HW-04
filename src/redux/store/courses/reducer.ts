@@ -3,7 +3,7 @@ import {
 	setAllCoursesAction,
 	clearAllCoursesAction,
 	clearDeletedCourseAction,
-	updateCourseAction,
+	setUpdatedCourseAction,
 	setNewCourseAction,
 } from './actionCreators';
 
@@ -28,7 +28,7 @@ export const coursesReducer = createReducer(initialReducer, {
 
 		return [...filteredCourses];
 	},
-	[updateCourseAction.type]: (state, action) => {
+	[setUpdatedCourseAction.type]: (state, action) => {
 		return [...state, ...action.payload];
 	},
 });

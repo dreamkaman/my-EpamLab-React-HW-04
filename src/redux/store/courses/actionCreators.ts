@@ -8,6 +8,7 @@ import {
 	UPDATE_COURSE,
 	SET_NEW_COURSE,
 	CLEAR_DELETED_COURSE,
+	SET_UPDATED_COURSE,
 } from './actionTypes';
 import { ICourse, IEditCourseReq } from 'tsTypes';
 
@@ -42,3 +43,5 @@ export const clearDeletedCourseAction = createAction<
 export const updateCourseAction = createAction<IEditCourseReq, 'UPDATE_COURSE'>(
 	UPDATE_COURSE
 );
+
+export const setUpdatedCourseAction = createAction(SET_UPDATED_COURSE);
