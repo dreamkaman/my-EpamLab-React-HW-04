@@ -10,7 +10,10 @@ import { deleteCourseAction } from 'redux/store/courses/actionCreators';
 
 import s from './CourseCard.module.css';
 import { useAppSelector } from 'redux/hooks';
-import { getTokenSelector } from 'redux/store/user/selectors';
+import {
+	getTokenSelector,
+	getUserRoleSelector,
+} from 'redux/store/user/selectors';
 
 const CourseCard: FC<ICourseCardProps> = ({
 	id,
@@ -23,6 +26,7 @@ const CourseCard: FC<ICourseCardProps> = ({
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const token = useAppSelector(getTokenSelector);
+	const role = useAppSelector(getUserRoleSelector);
 
 	const onShowCourseClickHandle = () => {
 		navigate(`/courses/${id}`);
@@ -62,13 +66,12 @@ const CourseCard: FC<ICourseCardProps> = ({
 						btnText='Show course'
 						onClick={onShowCourseClickHandle}
 					/>
-					<Button id={id} image='pen' btnText='' onClick={onEditCourseHandle} />
-					<Button
-						id={id}
-						image='trash'
-						btnText=''
-						onClick={onDeleteCourseHandle}
-					/>
+					{role === 'admin' && (
+						<Button id={id} image='pen' onClick={onEditCourseHandle} />
+					)}
+					{role === 'admin' && (
+						<Button id={id} image='trash' onClick={onDeleteCourseHandle} />
+					)}
 				</div>
 			</div>
 		</li>

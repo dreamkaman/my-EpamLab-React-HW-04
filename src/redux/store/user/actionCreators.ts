@@ -30,6 +30,7 @@ export const getUserDataAction = createAction<string, 'GET_USER_DATA'>(
 	GET_USER_DATA
 );
 
-export const setUserRoleAction = createAction<string, 'SET_USER_ROLE'>(
-	SET_USER_ROLE
-);
+export const setUserRoleAction = createAction<
+	'admin' | 'user',
+	'SET_USER_ROLE'
+>(SET_USER_ROLE);

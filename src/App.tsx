@@ -7,13 +7,18 @@ import Registration from 'components/Registration';
 import Login from 'components/Login';
 import CourseForm from 'components/CourseForm';
 import ProtectedRoute from 'common/ProtectedRoute';
+import PrivateRoute from 'components/PrivateRouter';
 
 import { useAppSelector } from 'redux/hooks';
-import { getIsAuthSelector } from 'redux/store/user/selectors';
+import {
+	getIsAuthSelector,
+	getUserRoleSelector,
+} from 'redux/store/user/selectors';
 import { Navigate } from 'react-router-dom';
 
 const App = () => {
 	const isAuth = useAppSelector(getIsAuthSelector);
+	const role = useAppSelector(getUserRoleSelector);
 
 	return (
 		<>
@@ -40,9 +45,9 @@ const App = () => {
 				<Route
 					path='/courses/add'
 					element={
-						<ProtectedRoute isLoggined={isAuth}>
+						<PrivateRoute userRole={role}>
 							<CourseForm />
-						</ProtectedRoute>
+						</PrivateRoute>
 					}
 				/>
 				<Route
@@ -51,6 +56,15 @@ const App = () => {
 						<ProtectedRoute isLoggined={isAuth}>
 							<CourseInfo />
 						</ProtectedRoute>
+					}
+				/>
+
+				<Route
+					path='/courses/update/:courseId'
+					element={
+						<PrivateRoute userRole={role}>
+							<CourseForm />
+						</PrivateRoute>
 					}
 				/>
 

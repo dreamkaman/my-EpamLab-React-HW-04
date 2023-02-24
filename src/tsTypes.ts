@@ -56,7 +56,7 @@ export type LogOutUserFn = (token: string) => Promise<ILogoutUserRes>;
 
 export interface IButtonProps {
 	id?: string;
-	btnText: string;
+	btnText?: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	type?: 'button' | 'submit';
 	image?: string;
@@ -78,7 +78,7 @@ export interface IProtectedRouteProps {
 }
 
 export interface IPrivateRouteProps {
-	role: 'admin' | 'user';
+	userRole: 'admin' | 'user';
 	children: ReactElement;
 }
 
