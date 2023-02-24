@@ -24,6 +24,7 @@ import { getTokenSelector } from 'redux/store/user/selectors';
 import { ICourseFormProps } from 'tsTypes';
 
 import s from './CourseForm.module.css';
+import { getAllCoursesSelector } from 'redux/store/courses/selectors';
 
 const CourseForm: FC<ICourseFormProps> = ({ mode }) => {
 	console.log(mode);
@@ -31,6 +32,8 @@ const CourseForm: FC<ICourseFormProps> = ({ mode }) => {
 	const dispatch = useAppDispatch();
 
 	const authors = useAppSelector(getAllAuthorsSelector);
+
+	const courses = useAppSelector(getAllCoursesSelector);
 
 	const token = useAppSelector(getTokenSelector);
 
@@ -46,7 +49,19 @@ const CourseForm: FC<ICourseFormProps> = ({ mode }) => {
 	const [restAuthors, setRestAuthors] = useState<IAuthor[]>([]);
 
 	useEffect(() => {
-		setRestAuthors(authors);
+		if (mode === 'create') {
+			setRestAuthors(authors);
+		} else {
+			const id = params.courseId;
+			const currentCourse = courses.find((course) => course.id === id);
+			// setSelectedAuthors(currentCourse.authors);
+
+			setTitle(currentCourse.title);
+			setDescription(currentCourse.description);
+			setDuration(currentCourse.duration);
+
+			setRestAuthors(authors);
+		}
 	}, [authors]);
 
 	const onChangeTitleHandle: React.ChangeEventHandler<HTMLInputElement> = (
