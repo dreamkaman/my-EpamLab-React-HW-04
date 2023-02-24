@@ -4,11 +4,11 @@ import { IPrivateRouteProps } from 'tsTypes';
 
 import { Navigate } from 'react-router-dom';
 
-const PrivateRoute: FC<IPrivateRouteProps> = ({ role, children }) => {
-	if (role === 'admin') {
+const PrivateRoute: FC<IPrivateRouteProps> = ({ userRole, children }) => {
+	if (userRole === 'admin') {
 		return children;
 	}
-	return <Navigate to='/registration' replace />;
+	return <Navigate to='/courses' replace />;
 };
 
 export default PrivateRoute;

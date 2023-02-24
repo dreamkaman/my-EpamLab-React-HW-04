@@ -10,14 +10,14 @@ const initialState = {
 	name: '',
 	email: '',
 	token: '',
-	role: '',
+	role: null,
 };
 
 export interface IUserLoginPayload {
 	name: string;
 	email: string;
 	token: string;
-	role: string;
+	role: 'admin' | 'user';
 }
 
 export const userReducer = createReducer(initialState, {
@@ -30,7 +30,10 @@ export const userReducer = createReducer(initialState, {
 	) => {
 		return { isAuth: true, ...action.payload };
 	},
-	[setUserRoleAction.type]: (state, action: PayloadAction<string>) => {
+	[setUserRoleAction.type]: (
+		state,
+		action: PayloadAction<'admin' | 'user'>
+	) => {
 		return { ...state, role: action.payload };
 	},
 });

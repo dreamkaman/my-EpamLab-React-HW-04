@@ -146,6 +146,7 @@ function* getUserDataWorker(action: {
 }) {
 	try {
 		const res = yield call(getUser, action.payload);
+
 		const { role } = res;
 
 		yield put(setUserRoleAction(role));
@@ -160,8 +161,8 @@ function* getUserDataWatcher() {
 
 export default function* rootSaga() {
 	yield all([
-		call(userLoginWatcherSaga),
-		call(userLogoutWatcherSaga),
+		fork(userLoginWatcherSaga),
+		fork(userLogoutWatcherSaga),
 		fork(getCoursesWatcherSaga),
 		fork(getAuthorsWatcherSaga),
 		fork(addNewCourseWatcherSaga),
