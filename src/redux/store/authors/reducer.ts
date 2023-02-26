@@ -3,7 +3,7 @@ import { IAuthor } from 'helpers/authorsString';
 import {
 	clearAllAuthorsAction,
 	setAllAuthorsAction,
-	addNewAuthorAction,
+	setNewAuthorAction,
 } from './actionCreators';
 
 const initialState: IAuthor[] = [];
@@ -14,7 +14,7 @@ export const authorsReducer = createReducer(initialState, {
 	[clearAllAuthorsAction.type]: () => {
 		return [];
 	},
-	[addNewAuthorAction.type]: (state, action) => {
+	[setNewAuthorAction.type]: (state, action) => {
 		return [...state, action.payload];
 	},
 });

@@ -160,13 +160,15 @@ export type DeleteCourseFn = (req: {
 }) => Promise<IDeleteCourseRes>;
 
 export interface IAddNewAuthorRes {
-	successful: boolean;
-	result: IAuthor;
+	data: {
+		successful: boolean;
+		result: IAuthor;
+	};
 }
-export type AddNewAuthorFn = (
-	token: string,
-	name: string
-) => Promise<IAddNewAuthorRes>;
+export type AddNewAuthorFn = (req: {
+	token: string;
+	name: string;
+}) => Promise<IAuthor>;
 
 export interface IFullUserData {
 	name: string;
