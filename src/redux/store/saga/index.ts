@@ -8,6 +8,7 @@ import {
 	loginUser,
 	logOutUser,
 	editCourse,
+	addNewAuthor,
 } from 'api/api';
 import { GET_USER_DATA, USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
@@ -28,14 +29,15 @@ import {
 	setAllCoursesAction,
 	setNewCourseAction,
 } from '../courses/actionCreators';
-import { GET_AUTHORS } from '../authors/actionTypes';
+import { ADD_NEW_AUTHOR, GET_AUTHORS } from '../authors/actionTypes';
 import {
 	clearAllAuthorsAction,
 	setAllAuthorsAction,
+	setNewAuthorAction,
 } from '../authors/actionCreators';
 import { IAddNewCourseReq, IEditCourseReq } from 'tsTypes';
 
-function* userLoginWorkerSaga(action: {
+function* userLoginWorker(action: {
 	type: string;
 	payload: { email: string; password: string };
 }) {
@@ -58,7 +60,7 @@ function* userLoginWorkerSaga(action: {
 	}
 }
 
-function* userLogOutWorkerSaga(action: { type: string; payload: string }) {
+function* userLogOutWorker(action: { type: string; payload: string }) {
 	try {
 		const res = yield call(logOutUser, action.payload);
 		const { status } = res;
@@ -72,7 +74,7 @@ function* userLogOutWorkerSaga(action: { type: string; payload: string }) {
 	}
 }
 
-function* coursesWorkerSaga() {
+function* coursesWorker() {
 	try {
 		const res = yield call(getAllCourses);
 		const {
@@ -84,7 +86,7 @@ function* coursesWorkerSaga() {
 	}
 }
 
-function* authorsWorkerSaga() {
+function* authorsWorker() {
 	try {
 		const res = yield call(getAllAuthors);
 		const {
@@ -97,26 +99,23 @@ function* authorsWorkerSaga() {
 	}
 }
 
-function* userLoginWatcherSaga() {
-	yield takeEvery(USER_LOGIN, userLoginWorkerSaga);
+function* userLoginWatcher() {
+	yield takeEvery(USER_LOGIN, userLoginWorker);
 }
 
-function* userLogoutWatcherSaga() {
-	yield takeEvery(USER_LOGOUT, userLogOutWorkerSaga);
+function* userLogoutWatcher() {
+	yield takeEvery(USER_LOGOUT, userLogOutWorker);
 }
 
-function* getCoursesWatcherSaga() {
-	yield takeEvery(GET_COURSES, coursesWorkerSaga);
+function* getCoursesWatcher() {
+	yield takeEvery(GET_COURSES, coursesWorker);
 }
 
-function* getAuthorsWatcherSaga() {
-	yield takeEvery(GET_AUTHORS, authorsWorkerSaga);
+function* getAuthorsWatcher() {
+	yield takeEvery(GET_AUTHORS, authorsWorker);
 }
 
-function* addCourseWorkerSaga(action: {
-	type: string;
-	payload: IAddNewCourseReq;
-}) {
+function* addCourseWorker(action: { type: string; payload: IAddNewCourseReq }) {
 	try {
 		const result = yield call(addNewCourse, action.payload);
 		yield put(setNewCourseAction(result));
@@ -125,8 +124,8 @@ function* addCourseWorkerSaga(action: {
 	}
 }
 
-function* addNewCourseWatcherSaga() {
-	yield takeEvery(ADD_COURSE, addCourseWorkerSaga);
+function* addNewCourseWatcher() {
+	yield takeEvery(ADD_COURSE, addCourseWorker);
 }
 
 function* deleteCourseWorker(action: {
@@ -169,8 +168,6 @@ function* editCourseWorker(action: {
 	type: 'UPDATE_COURSE';
 	payload: IEditCourseReq;
 }) {
-	console.log('action.payload', action.payload);
-
 	const res = yield call(editCourse, action.payload);
 
 	console.log(res);
@@ -180,15 +177,29 @@ function* editCourseWatcher() {
 	yield takeEvery(UPDATE_COURSE, editCourseWorker);
 }
 
+function* addNewAuthorWorker(action: {
+	type: string;
+	payload: { token: string; name: string };
+}) {
+	const res = yield call(addNewAuthor, action.payload);
+
+	yield put(setNewAuthorAction(res));
+}
+
+function* addNewAuthorWatcher() {
+	yield takeEvery(ADD_NEW_AUTHOR, addNewAuthorWorker);
+}
+
 export default function* rootSaga() {
 	yield all([
-		fork(userLoginWatcherSaga),
-		fork(userLogoutWatcherSaga),
-		fork(getCoursesWatcherSaga),
-		fork(getAuthorsWatcherSaga),
-		fork(addNewCourseWatcherSaga),
+		fork(userLoginWatcher),
+		fork(userLogoutWatcher),
+		fork(getCoursesWatcher),
+		fork(getAuthorsWatcher),
+		fork(addNewCourseWatcher),
 		fork(clearDeletedCourseWatcher),
 		fork(getUserDataWatcher),
 		fork(editCourseWatcher),
+		fork(addNewAuthorWatcher),
 	]);
 }

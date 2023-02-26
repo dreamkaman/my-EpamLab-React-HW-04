@@ -110,7 +110,6 @@ export const addNewCourse: AddNewCourseFn = async ({ token, course }) => {
 
 export const editCourse: EditCourseFn = async ({ id, token, course }) => {
 	try {
-		console.log('API ready');
 		const response: IEditCourseRes = await instance.put(
 			`/courses/${id}`,
 			course,
@@ -141,15 +140,22 @@ export const deleteCourse: DeleteCourseFn = async ({ id, token }) => {
 	}
 };
 
-export const addNewAuthor: AddNewAuthorFn = async (token, name) => {
+export const addNewAuthor: AddNewAuthorFn = async ({ token, name }) => {
 	try {
-		const response: IAddNewAuthorRes = await instance.post('/authors/add', {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-			data: { name },
-		});
-		return response;
+		const response: IAddNewAuthorRes = await instance.post(
+			'/authors/add',
+			{ name },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		const {
+			data: { result },
+		} = response;
+
+		return result;
 	} catch (error) {
 		console.log(error);
 		throw error;

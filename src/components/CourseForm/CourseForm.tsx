@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { v4 as uuidV4 } from 'uuid';
 
 import Button from 'common/Button';
 import Input from 'common/Input';
@@ -27,8 +26,6 @@ import s from './CourseForm.module.css';
 import { getAllCoursesSelector } from 'redux/store/courses/selectors';
 
 const CourseForm: FC<ICourseFormProps> = ({ mode }) => {
-	console.log(mode);
-
 	const dispatch = useAppDispatch();
 
 	const authors = useAppSelector(getAllAuthorsSelector);
@@ -137,9 +134,7 @@ const CourseForm: FC<ICourseFormProps> = ({ mode }) => {
 
 	const onCreateAuthorClickHandle = () => {
 		if (authorName && authorName.length > 1) {
-			const id = uuidV4();
-
-			dispatch(addNewAuthorAction({ id, name: authorName }));
+			dispatch(addNewAuthorAction({ token, name: authorName }));
 
 			setAuthorName('');
 
