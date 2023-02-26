@@ -54,13 +54,21 @@ const CourseForm: FC<ICourseFormProps> = ({ mode }) => {
 		} else {
 			const id = params.courseId;
 			const currentCourse = courses.find((course) => course.id === id);
-			// setSelectedAuthors(currentCourse.authors);
+
+			const restAuthorsCalculated = authors.filter((author) => {
+				return !currentCourse.authors.includes(author.id);
+			});
+
+			const selectedAuthorsCalculated = authors.filter((author) => {
+				return currentCourse.authors.includes(author.id);
+			});
 
 			setTitle(currentCourse.title);
 			setDescription(currentCourse.description);
 			setDuration(currentCourse.duration);
 
-			setRestAuthors(authors);
+			setRestAuthors(restAuthorsCalculated);
+			setSelectedAuthors(selectedAuthorsCalculated);
 		}
 	}, [authors]);
 
