@@ -16,6 +16,8 @@ import {
 	AddNewAuthorFn,
 	GetUserFn,
 	IGetUserRes,
+	GetAllCoursesFn,
+	IGetAllCoursesRes,
 } from 'tsTypes';
 
 const instance = axios.create({
@@ -67,9 +69,9 @@ export const logOutUser: LogOutUserFn = async (token) => {
 	}
 };
 
-export const getAllCourses = async () => {
+export const getAllCourses: GetAllCoursesFn = async () => {
 	try {
-		const response = await instance.get('/courses/all');
+		const response: IGetAllCoursesRes = await instance.get('/courses/all');
 		return response;
 	} catch (error) {
 		console.log(error);
