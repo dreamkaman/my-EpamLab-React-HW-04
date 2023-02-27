@@ -184,4 +184,14 @@ export interface IGetUserRes {
 		result: IFullUserData;
 	};
 }
+
 export type GetUserFn = (token: string) => Promise<IFullUserData>;
+
+export interface IGetAllCoursesRes {
+	data: {
+		successful: boolean;
+		result: ICourse;
+	};
+}
+
+export type GetAllCoursesFn = () => Promise<IGetAllCoursesRes>;
