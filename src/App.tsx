@@ -42,7 +42,7 @@ const App = () => {
 		if (userProfileSaved) {
 			const userProfileSavedObject = JSON.parse(userProfileSaved);
 			dispatch(setUserSavedProfileAction(userProfileSavedObject));
-			console.log(userProfileSaved);
+
 			navigate('/courses');
 		}
 	}, []);
