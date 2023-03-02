@@ -29,7 +29,6 @@ const Login = () => {
 	useEffect(() => {
 		if (isAuth) {
 			localStorage.setItem('token', token);
-
 			navigate('/courses');
 		}
 	}, [isAuth]);

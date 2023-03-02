@@ -3,6 +3,7 @@ import {
 	setUserDataAction,
 	clearUserDataAction,
 	setUserRoleAction,
+	setUserSavedProfileAction,
 } from './actionCreators';
 
 export interface IUserLoginPayload {
@@ -36,5 +37,11 @@ export const userReducer = createReducer(initialState, {
 		action: PayloadAction<'admin' | 'user'>
 	) => {
 		return { ...state, role: action.payload };
+	},
+	[setUserSavedProfileAction.type]: (
+		_state,
+		action: PayloadAction<IUserLoginPayload>
+	) => {
+		return { ...action.payload };
 	},
 });

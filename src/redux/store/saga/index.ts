@@ -69,6 +69,7 @@ function* userLogOutWorker(action: { type: string; payload: string }) {
 			yield put(clearAllCoursesAction());
 			yield put(clearAllAuthorsAction());
 			localStorage.setItem('token', '');
+			localStorage.setItem('user', '');
 		}
 	} catch (error) {
 		alert(error.message);

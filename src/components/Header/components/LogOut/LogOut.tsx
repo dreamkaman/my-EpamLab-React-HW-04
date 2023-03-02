@@ -1,5 +1,4 @@
-import { FC, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC } from 'react';
 import { useAppSelector } from 'redux/hooks';
 
 import Button from 'common/Button';
@@ -12,16 +11,8 @@ import { ILogoOutProps } from 'tsTypes';
 import s from './LogOut.module.css';
 
 const LogOut: FC<ILogoOutProps> = ({ userName = 'Anonymous' }) => {
-	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const token = useAppSelector(getTokenSelector);
-
-	useEffect(() => {
-		if (!token) {
-			localStorage.setItem('token', '');
-			navigate('/login');
-		}
-	}, [token]);
 
 	const onClickHandler = () => {
 		dispatch(userLogoutAction(token));

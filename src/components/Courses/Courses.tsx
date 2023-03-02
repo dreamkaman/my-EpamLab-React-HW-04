@@ -12,6 +12,7 @@ import { dateTransform } from 'helpers/dateGenerator';
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 import {
 	getTokenSelector,
+	getUserProfileSelector,
 	getUserRoleSelector,
 } from 'redux/store/user/selectors';
 import { getUserDataAction } from 'redux/store/user/actionCreators';
@@ -31,11 +32,30 @@ const Courses = () => {
 
 	const role = useAppSelector(getUserRoleSelector);
 
+	const userProfile = useAppSelector(getUserProfileSelector);
+
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(getUserDataAction(token));
 	}, [token]);
+
+	useEffect(() => {
+		if (role) {
+			console.log(role);
+			console.log(userProfile);
+			localStorage.setItem('user', JSON.stringify(userProfile));
+		}
+	}, [role]);
+
+	useEffect(() => {
+		const userProfileSaved = localStorage.getItem('user');
+
+		if (userProfileSaved) {
+			console.log(userProfileSaved);
+		}
+		console.log('userProfileSaved', userProfileSaved);
+	}, []);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');
