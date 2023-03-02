@@ -15,10 +15,25 @@ import {
 	getUserRoleSelector,
 } from 'redux/store/user/selectors';
 import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppDispatch } from 'redux/store';
+import { getUserDataAction } from 'redux/store/user/actionCreators';
 
 const App = () => {
+	const dispatch = useAppDispatch();
+
 	const isAuth = useAppSelector(getIsAuthSelector);
 	const role = useAppSelector(getUserRoleSelector);
+
+	useEffect(() => {
+		const token = localStorage.getItem('token');
+		if (token) {
+			console.log(token);
+			const data = dispatch(getUserDataAction(token));
+
+			console.log(data);
+		}
+	}, []);
 
 	return (
 		<>

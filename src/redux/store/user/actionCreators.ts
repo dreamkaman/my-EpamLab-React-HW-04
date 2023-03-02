@@ -11,6 +11,7 @@ import {
 
 import { IReqUser } from 'tsTypes';
 import { IUserLoginPayload } from './reducer';
+import { SET_USER_SAVED_PROFILE } from '../authors/actionTypes';
 
 export const userLoginAction = createAction<IReqUser, 'USER_LOGIN'>(USER_LOGIN);
 
@@ -34,3 +35,8 @@ export const setUserRoleAction = createAction<
 	'admin' | 'user',
 	'SET_USER_ROLE'
 >(SET_USER_ROLE);
+
+export const setUserSavedProfileAction = createAction<
+	IUserLoginPayload,
+	'SET_USER_SAVED_PROFILE'
+>(SET_USER_SAVED_PROFILE);
