@@ -14,13 +14,17 @@ import {
 	getIsAuthSelector,
 	getUserRoleSelector,
 } from 'redux/store/user/selectors';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch } from 'redux/store';
-import { getUserDataAction } from 'redux/store/user/actionCreators';
+import {
+	getUserDataAction,
+	setUserSavedProfileAction,
+} from 'redux/store/user/actionCreators';
 
 const App = () => {
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const isAuth = useAppSelector(getIsAuthSelector);
 	const role = useAppSelector(getUserRoleSelector);
@@ -28,10 +32,18 @@ const App = () => {
 	useEffect(() => {
 		const token = localStorage.getItem('token');
 		if (token) {
-			console.log(token);
-			const data = dispatch(getUserDataAction(token));
+			dispatch(getUserDataAction(token));
+		}
+	}, []);
 
-			console.log(data);
+	useEffect(() => {
+		const userProfileSaved = localStorage.getItem('user');
+
+		if (userProfileSaved) {
+			const userProfileSavedObject = JSON.parse(userProfileSaved);
+			dispatch(setUserSavedProfileAction(userProfileSavedObject));
+			console.log(userProfileSaved);
+			navigate('/courses');
 		}
 	}, []);
 

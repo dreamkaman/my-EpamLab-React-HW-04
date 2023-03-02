@@ -15,10 +15,7 @@ import {
 	getUserProfileSelector,
 	getUserRoleSelector,
 } from 'redux/store/user/selectors';
-import {
-	getUserDataAction,
-	setUserSavedProfileAction,
-} from 'redux/store/user/actionCreators';
+import { getUserDataAction } from 'redux/store/user/actionCreators';
 
 import { ICourse } from 'tsTypes';
 
@@ -38,17 +35,6 @@ const Courses = () => {
 	const userProfile = useAppSelector(getUserProfileSelector);
 
 	const dispatch = useAppDispatch();
-
-	useEffect(() => {
-		const userProfileSaved = localStorage.getItem('user');
-
-		if (userProfileSaved) {
-			const userProfileSavedObject = JSON.parse(userProfileSaved);
-			dispatch(setUserSavedProfileAction(userProfileSavedObject));
-			console.log(userProfileSaved);
-			alert('Hello!');
-		}
-	}, []);
 
 	useEffect(() => {
 		dispatch(getUserDataAction(token));
